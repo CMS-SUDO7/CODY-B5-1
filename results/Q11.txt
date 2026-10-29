@@ -1,0 +1,18 @@
+실제 재실행 기록 | 한국 시각 2026-10-27T23:54:17+09:00
+Python 3.12.14 / SQLite 3.53.1
+새 DB: 01_schema.sql → 02_seed.sql → Q01~Q15 순서
+금액은 원 단위. NULL은 NULL로 표기.
+
+Q11 | 집계 | 판매 가능한 메뉴의 분류별 평균 가격을 구한다. AVG + GROUP BY.
+SELECT category, ROUND(AVG(price_won), 2) AS average_price_won
+FROM menu
+WHERE is_available = 1
+GROUP BY category
+ORDER BY category ASC;
+
+category | average_price_won
+coffee | 4600.0
+dessert | 6500.0
+tea | 4750.0
+반환 행 수: 3
+

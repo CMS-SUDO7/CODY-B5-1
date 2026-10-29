@@ -1,0 +1,21 @@
+실제 재실행 기록 | 한국 시각 2026-10-27T23:54:17+09:00
+Python 3.12.14 / SQLite 3.53.1
+새 DB: 01_schema.sql → 02_seed.sql → Q01~Q15 순서
+금액은 원 단위. NULL은 NULL로 표기.
+
+Q14 | 삭제 | 상세가 없는 14번 취소 주문을 삭제한다.
+DELETE FROM cafe_order
+WHERE order_id = 14 AND status = 'cancelled';
+
+실행 전
+SELECT order_id, customer_id, ordered_at, status FROM cafe_order WHERE order_id=14;
+order_id | customer_id | ordered_at | status
+14 | 6 | 2026-10-13 15:30:00 | cancelled
+반환 행 수: 1
+
+실제 변경 행 수: 1
+실행 후
+SELECT order_id, customer_id, ordered_at, status FROM cafe_order WHERE order_id=14;
+order_id | customer_id | ordered_at | status
+반환 행 수: 0
+

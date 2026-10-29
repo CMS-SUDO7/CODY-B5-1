@@ -1,0 +1,21 @@
+실제 재실행 기록 | 한국 시각 2026-10-27T23:54:17+09:00
+Python 3.12.14 / SQLite 3.53.1
+새 DB: 01_schema.sql → 02_seed.sql → Q01~Q15 순서
+금액은 원 단위. NULL은 NULL로 표기.
+
+Q03 | 기본 조회 | 2026년 10월 주문 중 가장 최근 주문 5건을 찾는다.
+SELECT order_id, customer_id, ordered_at, status
+FROM cafe_order
+WHERE ordered_at >= '2026-10-01 00:00:00'
+  AND ordered_at < '2026-11-01 00:00:00'
+ORDER BY ordered_at DESC, order_id DESC
+LIMIT 5;
+
+order_id | customer_id | ordered_at | status
+14 | 6 | 2026-10-13 15:30:00 | cancelled
+13 | 5 | 2026-10-12 14:30:00 | pending
+12 | 4 | 2026-10-11 13:30:00 | cancelled
+11 | 3 | 2026-10-10 11:30:00 | paid
+10 | 2 | 2026-10-09 10:30:00 | paid
+반환 행 수: 5
+

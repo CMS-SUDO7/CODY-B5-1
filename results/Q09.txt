@@ -1,0 +1,17 @@
+실제 재실행 기록 | 한국 시각 2026-10-27T23:54:17+09:00
+Python 3.12.14 / SQLite 3.53.1
+새 DB: 01_schema.sql → 02_seed.sql → Q01~Q15 순서
+금액은 원 단위. NULL은 NULL로 표기.
+
+Q09 | 집계 | 상태별 주문 건수를 센다. COUNT + GROUP BY.
+SELECT status, COUNT(*) AS order_count
+FROM cafe_order
+GROUP BY status
+ORDER BY status ASC;
+
+status | order_count
+cancelled | 2
+paid | 11
+pending | 1
+반환 행 수: 3
+

@@ -1,0 +1,28 @@
+실제 재실행 기록 | 한국 시각 2026-10-27T23:54:17+09:00
+Python 3.12.14 / SQLite 3.53.1
+새 DB: 01_schema.sql → 02_seed.sql → Q01~Q15 순서
+금액은 원 단위. NULL은 NULL로 표기.
+
+Q05 | 조인 | 각 주문에 주문한 고객 이름을 붙인다. INNER JOIN 1.
+SELECT o.order_id, c.customer_name, o.status
+FROM cafe_order AS o
+INNER JOIN customer AS c ON c.customer_id = o.customer_id
+ORDER BY o.order_id ASC;
+
+order_id | customer_name | status
+1 | 김민수 | paid
+2 | 이서연 | paid
+3 | 박지훈 | paid
+4 | 김민수 | paid
+5 | 최유진 | paid
+6 | 정하늘 | paid
+7 | 강도윤 | paid
+8 | 윤수빈 | paid
+9 | 장현우 | paid
+10 | 이서연 | paid
+11 | 박지훈 | paid
+12 | 최유진 | cancelled
+13 | 정하늘 | pending
+14 | 강도윤 | cancelled
+반환 행 수: 14
+

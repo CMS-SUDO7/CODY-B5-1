@@ -1,0 +1,62 @@
+실제 재실행 기록 | 한국 시각 2026-10-27T23:54:17+09:00
+Python 3.12.14 / SQLite 3.53.1
+새 DB: 01_schema.sql → 02_seed.sql → Q01~Q15 순서
+금액은 원 단위. NULL은 NULL로 표기.
+
+초기 행 수: {'customer': 10, 'menu': 10, 'cafe_order': 14, 'order_item': 23}
+PRAGMA foreign_keys = 1
+
+PASS: 없는 고객 FK
+INSERT INTO cafe_order VALUES (99, 999, '2026-10-15 10:00:00', 'paid');
+실제 오류: FOREIGN KEY constraint failed
+
+PASS: 없는 주문 FK
+INSERT INTO order_item VALUES (99, 999, 1, 1, 4000);
+실제 오류: FOREIGN KEY constraint failed
+
+PASS: 없는 메뉴 FK
+INSERT INTO order_item VALUES (99, 14, 999, 1, 4000);
+실제 오류: FOREIGN KEY constraint failed
+
+PASS: 참조 중인 고객 삭제
+DELETE FROM customer WHERE customer_id=1;
+실제 오류: FOREIGN KEY constraint failed
+
+PASS: 참조 중인 주문 삭제
+DELETE FROM cafe_order WHERE order_id=1;
+실제 오류: FOREIGN KEY constraint failed
+
+PASS: 참조 중인 메뉴 삭제
+DELETE FROM menu WHERE menu_id=1;
+실제 오류: FOREIGN KEY constraint failed
+
+PASS: 이메일 중복
+INSERT INTO customer VALUES (99, '중복고객', 'minsu@example.com');
+실제 오류: UNIQUE constraint failed: customer.email
+
+PASS: 필수값 누락
+INSERT INTO customer VALUES (99, NULL, 'missing@example.com');
+실제 오류: NOT NULL constraint failed: customer.customer_name
+
+PASS: 중복 기본 키
+INSERT INTO customer VALUES (1, '중복번호', 'other@example.com');
+실제 오류: UNIQUE constraint failed: customer.customer_id
+
+PASS: 음수 가격
+UPDATE menu SET price_won=-1 WHERE menu_id=1;
+실제 오류: CHECK constraint failed: price_won >= 0
+
+PASS: 0 수량
+UPDATE order_item SET quantity=0 WHERE order_item_id=1;
+실제 오류: CHECK constraint failed: quantity > 0
+
+PASS: 잘못된 상태
+UPDATE cafe_order SET status='unknown' WHERE order_id=1;
+실제 오류: CHECK constraint failed: status IN ('paid', 'pending', 'cancelled')
+
+PASS: 동일 주문·메뉴 중복
+INSERT INTO order_item VALUES (99, 1, 1, 1, 4000);
+실제 오류: UNIQUE constraint failed: order_item.order_id, order_item.menu_id
+
+13건 모두 실제 차단. SAVEPOINT로 되돌려 샘플 상태 유지.
+PRAGMA foreign_key_check: 위반 0행

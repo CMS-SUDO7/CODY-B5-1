@@ -1,0 +1,20 @@
+실제 재실행 기록 | 한국 시각 2026-10-27T23:54:17+09:00
+Python 3.12.14 / SQLite 3.53.1
+새 DB: 01_schema.sql → 02_seed.sql → Q01~Q15 순서
+금액은 원 단위. NULL은 NULL로 표기.
+
+Q12 | 서브쿼리 | 주문 기록이 한 번도 없는 고객을 찾는다. NOT EXISTS.
+SELECT c.customer_id, c.customer_name
+FROM customer AS c
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM cafe_order AS o
+    WHERE o.customer_id = c.customer_id
+)
+ORDER BY c.customer_id ASC;
+
+customer_id | customer_name
+9 | 임지아
+10 | 한시우
+반환 행 수: 2
+
