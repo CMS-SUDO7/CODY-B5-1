@@ -1,0 +1,17 @@
+Q08 | 조인 | 1번 고객의 결제 완료 주문에 담긴 메뉴와 수량을 확인한다.
+2026-10-29 | SQLite CLI 3.43.2
+01_schema -> 02_seed -> Q01-Q15 / one transaction
+
+SELECT c.customer_name, o.order_id, m.menu_name, i.quantity
+FROM customer AS c
+INNER JOIN cafe_order AS o ON o.customer_id = c.customer_id
+INNER JOIN order_item AS i ON i.order_id = o.order_id
+INNER JOIN menu AS m ON m.menu_id = i.menu_id
+WHERE c.customer_id = 1 AND o.status = 'paid'
+ORDER BY o.order_id ASC, i.order_item_id ASC;
+customer_name  order_id  menu_name  quantity
+-------------  --------  ---------  --------
+김민수            1         아메리카노      2       
+김민수            1         초코케이크      1       
+김민수            4         콜드브루       1       
+김민수            4         버터쿠키       1       

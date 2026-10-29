@@ -1,0 +1,21 @@
+Q13 | 수정 | 13번 주문이 결제 대기일 때만 결제 완료로 바꾼다.
+2026-10-29 | SQLite CLI 3.43.2
+01_schema -> 02_seed -> Q01-Q15 / one transaction
+
+BEFORE
+SELECT order_id, status FROM cafe_order WHERE order_id = 13;
+order_id  status 
+--------  -------
+13        pending
+UPDATE cafe_order
+SET status = 'paid'
+WHERE order_id = 13 AND status = 'pending';
+SELECT changes() AS changed_rows;
+changed_rows
+------------
+1           
+AFTER
+SELECT order_id, status FROM cafe_order WHERE order_id = 13;
+order_id  status
+--------  ------
+13        paid  

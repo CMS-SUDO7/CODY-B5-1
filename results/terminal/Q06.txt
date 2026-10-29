@@ -1,0 +1,34 @@
+Q06 | 조인 | 상세에 메뉴 이름과 당시 단가·소계를 붙인다. INNER JOIN 2.
+2026-10-29 | SQLite CLI 3.43.2
+01_schema -> 02_seed -> Q01-Q15 / one transaction
+
+SELECT i.order_item_id, m.menu_name, i.quantity,
+       i.unit_price_won, i.quantity * i.unit_price_won AS subtotal_won
+FROM order_item AS i
+INNER JOIN menu AS m ON m.menu_id = i.menu_id
+ORDER BY i.order_item_id ASC;
+order_item_id  menu_name  quantity  unit_price_won  subtotal_won
+-------------  ---------  --------  --------------  ------------
+1              아메리카노      2         4000            8000        
+2              초코케이크      1         6500            6500        
+3              카페라테       1         4500            4500        
+4              버터쿠키       2         2500            5000        
+5              바닐라라테      2         5000            10000       
+6              치즈케이크      1         6500            6500        
+7              콜드브루       1         5000            5000        
+8              버터쿠키       1         2500            2500        
+9              얼그레이       1         4500            4500        
+10             초코케이크      1         6500            6500        
+11             레몬차        2         5000            10000       
+12             치즈케이크      1         6500            6500        
+13             카푸치노       1         4500            4500        
+14             버터쿠키       2         2500            5000        
+15             아메리카노      1         4000            4000        
+16             초코케이크      1         6500            6500        
+17             카페라테       2         4500            9000        
+18             치즈케이크      1         6500            6500        
+19             콜드브루       2         5000            10000       
+20             버터쿠키       1         2500            2500        
+21             바닐라라테      1         5000            5000        
+22             얼그레이       1         4500            4500        
+23             레몬차        1         5000            5000        

@@ -1,0 +1,61 @@
+Q08 단계별 실제 실행 결과 | 2026-10-29 (한국)
+Python sqlite3 / SQLite 3.43.2
+새 메모리 DB: 01_schema.sql -> 02_seed.sql
+
+STEP 1: customer
+SELECT customer_id, customer_name
+FROM customer
+WHERE customer_id = 1;
+
+customer_id | customer_name
+1 | 김민수
+반환 행 수: 1
+
+STEP 2: paid orders
+SELECT o.order_id, o.customer_id, o.status
+FROM cafe_order AS o
+WHERE o.customer_id IN (
+    SELECT customer_id
+    FROM customer
+    WHERE customer_id = 1
+)
+  AND o.status = 'paid'
+ORDER BY o.order_id;
+
+order_id | customer_id | status
+1 | 1 | paid
+4 | 1 | paid
+반환 행 수: 2
+
+STEP 3: order items
+SELECT o.order_id, i.order_item_id, i.menu_id, i.quantity
+FROM (
+    SELECT order_id
+    FROM cafe_order
+    WHERE customer_id = 1 AND status = 'paid'
+) AS o
+INNER JOIN order_item AS i ON i.order_id = o.order_id
+ORDER BY o.order_id, i.order_item_id;
+
+order_id | order_item_id | menu_id | quantity
+1 | 1 | 1 | 2
+1 | 2 | 8 | 1
+4 | 7 | 5 | 1
+4 | 8 | 10 | 1
+반환 행 수: 4
+
+STEP 4: Q08
+SELECT c.customer_name, o.order_id, m.menu_name, i.quantity
+FROM customer AS c
+INNER JOIN cafe_order AS o ON o.customer_id = c.customer_id
+INNER JOIN order_item AS i ON i.order_id = o.order_id
+INNER JOIN menu AS m ON m.menu_id = i.menu_id
+WHERE c.customer_id = 1 AND o.status = 'paid'
+ORDER BY o.order_id ASC, i.order_item_id ASC;
+
+customer_name | order_id | menu_name | quantity
+김민수 | 1 | 아메리카노 | 2
+김민수 | 1 | 초코케이크 | 1
+김민수 | 4 | 콜드브루 | 1
+김민수 | 4 | 버터쿠키 | 1
+반환 행 수: 4

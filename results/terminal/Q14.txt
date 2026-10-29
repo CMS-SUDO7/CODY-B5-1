@@ -1,0 +1,32 @@
+Q14 | 삭제 | 상세가 없는 14번 취소 주문을 삭제한다.
+2026-10-29 | SQLite CLI 3.43.2
+01_schema -> 02_seed -> Q01-Q15 / one transaction
+
+BEFORE
+SELECT order_id, status FROM cafe_order WHERE order_id = 14;
+order_id  status   
+--------  ---------
+14        cancelled
+SELECT COUNT(*) AS order_count FROM cafe_order;
+order_count
+-----------
+14         
+DELETE FROM cafe_order
+WHERE order_id = 14 AND status = 'cancelled';
+SELECT changes() AS changed_rows;
+changed_rows
+------------
+1           
+AFTER
+SELECT COUNT(*) AS remaining_order_14 FROM cafe_order WHERE order_id = 14;
+remaining_order_14
+------------------
+0                 
+SELECT COUNT(*) AS order_count FROM cafe_order;
+order_count
+-----------
+13         
+SELECT COUNT(*) AS item_count FROM order_item;
+item_count
+----------
+23        

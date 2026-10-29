@@ -1,0 +1,26 @@
+Q07 | 조인 | 주문이 없는 고객까지 포함해 고객과 주문을 확인한다. LEFT JOIN.
+2026-10-29 | SQLite CLI 3.43.2
+01_schema -> 02_seed -> Q01-Q15 / one transaction
+
+SELECT c.customer_id, c.customer_name, o.order_id, o.status
+FROM customer AS c
+LEFT JOIN cafe_order AS o ON o.customer_id = c.customer_id
+ORDER BY c.customer_id ASC, o.order_id ASC;
+customer_id  customer_name  order_id  status   
+-----------  -------------  --------  ---------
+1            김민수            1         paid     
+1            김민수            4         paid     
+2            이서연            2         paid     
+2            이서연            10        paid     
+3            박지훈            3         paid     
+3            박지훈            11        paid     
+4            최유진            5         paid     
+4            최유진            12        cancelled
+5            정하늘            6         paid     
+5            정하늘            13        pending  
+6            강도윤            7         paid     
+6            강도윤            14        cancelled
+7            윤수빈            8         paid     
+8            장현우            9         paid     
+9            임지아            NULL      NULL     
+10           한시우            NULL      NULL     
