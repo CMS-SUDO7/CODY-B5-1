@@ -9,10 +9,10 @@ FROM menu
 WHERE is_available = 1 AND price_won >= 5000
 ORDER BY price_won ASC, menu_id ASC;
 
--- Q02 | 기본 조회 | 이름에 라테가 들어간 메뉴를 검색한다.
+-- Q02 | 기본 조회 | 이름에 라떼가 들어간 메뉴를 검색한다.
 SELECT menu_id, menu_name, price_won
 FROM menu
-WHERE menu_name LIKE '%라테%'
+WHERE menu_name LIKE '%라떼%'
 ORDER BY menu_id ASC;
 
 -- Q03 | 기본 조회 | 2026년 10월 주문 중 가장 최근 주문 5건을 찾는다.

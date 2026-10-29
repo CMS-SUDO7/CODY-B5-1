@@ -21,12 +21,12 @@ VALUES
 INSERT INTO menu (menu_id, menu_name, category, price_won, is_available)
 VALUES
     (1, '아메리카노', 'coffee', 4000, 1),
-    (2, '카페라테', 'coffee', 4500, 1),
-    (3, '바닐라라테', 'coffee', 5000, 1),
+    (2, '카페라떼', 'coffee', 4500, 1),
+    (3, '바닐라라떼', 'coffee', 5000, 1),
     (4, '카푸치노', 'coffee', 4500, 1),
     (5, '콜드브루', 'coffee', 5000, 1),
     (6, '얼그레이', 'tea', 4500, 1),
-    (7, '레몬차', 'tea', 5000, 1),
+    (7, '레몬티', 'tea', 5000, 1),
     (8, '초코케이크', 'dessert', 6500, 1),
     (9, '치즈케이크', 'dessert', 6500, 1),
     (10, '버터쿠키', 'dessert', 2500, 0);
