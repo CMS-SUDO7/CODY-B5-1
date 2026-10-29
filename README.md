@@ -82,24 +82,8 @@ sqlite3 -header -column cafe_new.db 'SELECT COUNT(*) AS order_count FROM cafe_or
 | Q14 | 14번 취소 주문 삭제 · DELETE | [Q14 이미지](results/screenshots/Q14.png) |
 | Q15 | 최근 주문 검색용 인덱스 생성 | [Q15 이미지](results/screenshots/Q15.png) |
 
-## 6. 실행 결과
 
-Q01~Q12의 결과는 수정·삭제 전 기준이다.
-
-| 항목 | 결과 |
-| --- | --- |
-| 주문 상태 | 결제 완료 11건·취소 2건·대기 1건 |
-| 최고 구매액 | 김민수·이서연 각 22,000원 |
-| 주문 없는 고객 | 임지아·한시우 |
-| Q13 실행 후 | 13번 주문 `pending` → `paid` |
-| Q14 실행 후 | 주문 14 → 13건, 상세 23행 유지 |
-| Q15 실행 후 | `idx_cafe_order_recent` 인덱스로 검색 |
-
-### 실행 화면
-
-쿼리 이름을 펼치면 실행 결과 이미지를 볼 수 있다.
-
-<details open>
+</details>
 <summary>Q01 · 판매 가능한 5,000원 이상 메뉴</summary>
 
 ![Q01 실행 SQL과 결과](results/screenshots/Q01.png)
@@ -204,7 +188,7 @@ Q01~Q12의 결과는 수정·삭제 전 기준이다.
 
 </details>
 
-## 7. 오류 해결
+## 6. 오류 해결
 
 | 오류 | 해결 |
 | --- | --- |
@@ -213,7 +197,7 @@ Q01~Q12의 결과는 수정·삭제 전 기준이다.
 | `FOREIGN KEY constraint failed` | 참조할 고객·주문·메뉴가 있는지 확인한다. |
 | `cannot start a transaction within a transaction` | 진행 중인 작업을 COMMIT 또는 ROLLBACK한 뒤 실행한다. |
 
-## 8. 설계와 쿼리 해설
+## 7. 설계와 쿼리 해설
 
 ### DB와 엑셀 비교
 
