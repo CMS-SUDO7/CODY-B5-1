@@ -23,12 +23,6 @@
 | `cafe_order` | `order_item` | `order_id` | 주문 1건에 여러 메뉴 상세를 담는다. |
 | `menu` | `order_item` | `menu_id` | 메뉴 1개가 여러 주문 상세에 등장할 수 있다. |
 
-```mermaid
-erDiagram
-    customer ||--o{ cafe_order : places
-    cafe_order ||--o{ order_item : contains
-    menu ||--o{ order_item : appears_in
-```
 
 ## 3. 핵심 쿼리 15개
 
