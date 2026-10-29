@@ -30,47 +30,6 @@ erDiagram
     menu ||--o{ order_item : appears_in
 ```
 
-
-### 방법 A: SQL 편집기
-
-1. SQLite 연결을 만들고 `data/cafe.db` 또는 복사본을 연다.
-2. 실행 중인 트랜잭션이 없는 상태에서 `PRAGMA foreign_keys = ON;`을 실행한다.
-3. `PRAGMA foreign_keys;`를 실행해 결과가 **1**인지 확인한다. 설정은 연결마다 필요하다.
-4. `sql/03_queries.sql`의 Q01~Q12를 쿼리별로 선택해 실행한다. 세미콜론까지 선택한다.
-5. Q13~Q14는 데이터를 변경하고 Q15는 인덱스를 만든다. 아래 변경 내역을 읽은 뒤 실행한다.
-
-전체 SQL 파일을 스크립트로 실행할 수도 있다. 파일 내부에 BEGIN/COMMIT이 있으므로 도구가 별도 트랜잭션을 먼저 열지 않게 설정한다. 수동 트랜잭션 도구라면 먼저 기존 작업을 COMMIT/ROLLBACK하고 진행한다. 이미 초기화된 `cafe.db`에 01·02를 다시 실행하면 중복 오류가 나는 것이 정상이다.
-
-### 방법 B: SQLite 공식 CLI로 처음부터 만들기
-
-[공식 다운로드](https://sqlite.org/download.html)에서 운영체제에 맞는 SQLite tools를 준비한다. Windows에서는 `sqlite3.exe`가 들어 있는 폴더를 PATH에 추가하거나 실행 파일의 전체 경로로 호출한다. 아래 명령은 PATH에 등록되어 있다고 가정한다. 설치 프로그램이나 패키지 설치 명령은 이 결과물에서 실행하지 않았다.
-
-터미널의 현재 위치를 압축 해제한 `b5-1-cafe` 폴더로 옮긴다. 다음 `cafe_practice.db`는 **아직 없는 새 파일명**을 사용한다.
-
-Windows PowerShell 또는 Linux Bash에서:
-
-```text
-sqlite3 cafe_practice.db
-```
-
-SQLite가 시작된 다음 아래를 입력한다. 점으로 시작하는 명령은 SQL이 아니라 SQLite CLI 전용 명령이다. PowerShell에 그대로 붙이는 명령이 아니다.
-
-```text
-.bail on
-.headers on
-.mode list
-.read sql/01_schema.sql
-.read sql/02_seed.sql
-PRAGMA foreign_keys;
-SELECT COUNT(*) FROM cafe_order;
-.echo on
-.output results/my_run.txt
-.read sql/03_queries.sql
-.output stdout
-.echo off
-.quit
-```
-
 ## 3. 핵심 쿼리 15개
 
 각 번호는 아래 **주된 범주 한 곳에서만** 센다. 스키마 DDL·샘플 INSERT·검증용 SQL은 15개에 포함하지 않는다.
