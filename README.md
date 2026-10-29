@@ -34,14 +34,15 @@ SQLite로 고객·메뉴·주문·주문 상세를 관리하는 SQL 실습 프�
 
 프로젝트 폴더에서 실행한다. 아래 명령은 WSL과 macOS에서 공통으로 사용한다.
 
-### 실행
+### 실행 방법
 
 ```bash
 sqlite3 -header -column data/cafe.db
 ```
 
-### 더미로 실행
-```
+### 더미 실행 방법
+
+```bash
 cp data/cafe.db data/cafe_work.db
 sqlite3 -bail -header -column -echo data/cafe_work.db
 ```
@@ -50,14 +51,9 @@ sqlite3 -bail -header -column -echo data/cafe_work.db
 
 원본을 복사한 연습용 DB에서 실행한다. 다시 실행하면 복사 단계에서 연습용 DB가 초기화된다.
 
-```bash
+```text
 .read sql/03_queries.sql
 ```
-
-Q13은 13번 주문을 결제 완료로 바꾸고, Q14는 14번 취소 주문을 삭제한다. Q15는 주문 검색용 인덱스를 만든다.
-
-### 
-
 
 ## 5. 핵심 쿼리 15개
 
@@ -80,7 +76,9 @@ Q13은 13번 주문을 결제 완료로 바꾸고, Q14는 14번 취소 주문을
 | Q15 | 최근 주문 검색용 인덱스 생성 | [Q15 이미지](results/screenshots/Q15.png) |
 
 
-</details>
+### 실행 화면
+
+<details>
 <summary>Q01 · 판매 가능한 5,000원 이상 메뉴</summary>
 
 ![Q01 실행 SQL과 결과](results/screenshots/Q01.png)

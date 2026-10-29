@@ -1,0 +1,30 @@
+Q15 | 인덱스 | 최근 주문 검색의 시각 범위와 정렬을 지원하는 인덱스를 만든다.
+SQLite 3.43.2 | sqlite3 -header -column
+data/cafe.db 복사본에서 Q01~Q15 순서로 실행
+
+[인덱스 생성 전 실행 계획]
+EXPLAIN QUERY PLAN SELECT order_id, customer_id, ordered_at, status
+FROM cafe_order
+WHERE ordered_at >= '2026-10-01 00:00:00'
+  AND ordered_at < '2026-11-01 00:00:00'
+ORDER BY ordered_at DESC, order_id DESC
+LIMIT 5;
+
+QUERY PLAN
+|--SCAN cafe_order
+`--USE TEMP B-TREE FOR ORDER BY
+
+CREATE INDEX IF NOT EXISTS idx_cafe_order_recent
+ON cafe_order (ordered_at DESC, order_id DESC);
+
+
+[인덱스 생성 후 실행 계획]
+EXPLAIN QUERY PLAN SELECT order_id, customer_id, ordered_at, status
+FROM cafe_order
+WHERE ordered_at >= '2026-10-01 00:00:00'
+  AND ordered_at < '2026-11-01 00:00:00'
+ORDER BY ordered_at DESC, order_id DESC
+LIMIT 5;
+
+QUERY PLAN
+`--SEARCH cafe_order USING INDEX idx_cafe_order_recent (ordered_at>? AND ordered_at<?)

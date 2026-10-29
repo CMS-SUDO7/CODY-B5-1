@@ -1,0 +1,13 @@
+Q02 | 기본 조회 | 이름에 라떼가 들어간 메뉴를 검색한다.
+SQLite 3.43.2 | sqlite3 -header -column
+data/cafe.db 복사본에서 Q01~Q15 순서로 실행
+
+SELECT menu_id, menu_name, price_won
+FROM menu
+WHERE menu_name LIKE '%라떼%'
+ORDER BY menu_id ASC;
+
+menu_id  menu_name  price_won
+-------  ---------  ---------
+2        카페라떼       4500
+3        바닐라라떼      5000

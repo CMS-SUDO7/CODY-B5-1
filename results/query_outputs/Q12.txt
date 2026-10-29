@@ -1,0 +1,17 @@
+Q12 | 서브쿼리 | 주문 기록이 한 번도 없는 고객을 찾는다. NOT EXISTS.
+SQLite 3.43.2 | sqlite3 -header -column
+data/cafe.db 복사본에서 Q01~Q15 순서로 실행
+
+SELECT c.customer_id, c.customer_name
+FROM customer AS c
+WHERE NOT EXISTS (
+    SELECT 1
+    FROM cafe_order AS o
+    WHERE o.customer_id = c.customer_id
+)
+ORDER BY c.customer_id ASC;
+
+customer_id  customer_name
+-----------  -------------
+9            임지아
+10           한시우
